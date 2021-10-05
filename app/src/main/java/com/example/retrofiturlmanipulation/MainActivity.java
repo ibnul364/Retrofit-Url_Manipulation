@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.retrofiturlmanipulation.model.Comment;
+import com.example.retrofiturlmanipulation.model.Post;
 
 import java.util.List;
 
@@ -33,9 +34,42 @@ public class MainActivity extends AppCompatActivity {
 
          api = retrofit.create(JsonPlaceHolderApi.class);
 
-        getCommentPosts();
+        //getCommentPosts();
+        getPosts();
 
 
+    }
+
+    private void getPosts() {
+        Call<List<Post>> call = api.getPosts(1,"id","asc");
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+
+                if(!response.isSuccessful()){
+                    resultView.setText("Code:" + response.code());
+                    return;
+                }
+
+                List<Post> posts = response.body();
+
+                for(Post post : posts){
+                    String content ="";
+                    content += "ID: " +post.getId() + "\n";
+                    content += "USER ID: " + post.getUserId() + "\n";
+                    content += "Title: " + post.getTitle() + "\n";
+                    content += "Text: " + post.getText() + "\n\n";
+
+                    resultView.append(content);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                resultView.setText(t.getMessage());
+            }
+        });
     }
 
     private void getCommentPosts() {
