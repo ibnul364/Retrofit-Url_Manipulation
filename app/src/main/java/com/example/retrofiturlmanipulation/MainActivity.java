@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPosts() {
-        Call<List<Post>> call = api.getPosts(1,"id","asc");
+        Call<List<Post>> call = api.getPosts(new Integer[]{1,2,3},"id","asc");
 
         call.enqueue(new Callback<List<Post>>() {
             @Override

@@ -17,7 +17,7 @@ public interface JsonPlaceHolderApi {
 
     @GET("posts")
     Call<List<Post>>  getPosts(
-            @Query("userId") int userId,
+            @Query("userId") Integer[] userId,
             @Query("_sort") String sort,
             @Query("_order") String order
 
