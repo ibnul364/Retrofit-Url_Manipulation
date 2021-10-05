@@ -11,5 +11,5 @@ import retrofit2.http.Path;
 public interface JsonPlaceHolderApi {
 
     @GET("posts/{id}/comments")
-    Call<List<Comment>> getComments();
+    Call<List<Comment>> getComments(@Path("id") int postId);
 }
