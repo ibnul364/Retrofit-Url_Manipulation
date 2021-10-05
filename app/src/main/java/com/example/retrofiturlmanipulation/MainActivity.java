@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.example.retrofiturlmanipulation.model.Comment;
 import com.example.retrofiturlmanipulation.model.Post;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPosts() {
-        Call<List<Post>> call = api.getPosts(new Integer[]{1,2,3},"id","asc");
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("userId","1");
+        parameters.put("_sort","2");
+        parameters.put("_order","asc");
+
+        Call<List<Post>> call = api.getPosts(parameters);
 
         call.enqueue(new Callback<List<Post>>() {
             @Override
